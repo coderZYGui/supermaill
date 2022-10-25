@@ -1,6 +1,7 @@
 <template>
   <tab-bar>
-    <tab-bar-item path="/home" active-color="blue">
+    <!--    <tab-bar-item path="/home" active-color="blue">-->
+    <tab-bar-item path="/home">
       <!-- 具名插槽 -->
 
       <!-- 具名插槽写法1 -->
@@ -20,7 +21,7 @@
       <div slot="item-text">首页</div>
     </tab-bar-item>
 
-    <tab-bar-item path="/category" active-color="skyblue">
+    <tab-bar-item path="/category">
       <img slot="item-icon" src="@/assets/img/tabbar/category.svg" alt="">
       <img slot="item-icon-active" src="@/assets/img/tabbar/category_active.svg" alt="">
       <div slot="item-text">分类</div>
