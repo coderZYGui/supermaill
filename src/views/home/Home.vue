@@ -7,13 +7,58 @@
     </nav-bar>
     <home-swiper :banners="banners"/>
     <recommend-view :recommends="recommends"/>
+    <feature-view/>
+    <tab-control class="tab-control" :titles="titles"/>
+    <ul>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+    </ul>
   </div>
 </template>
 
 <script>
-import NavBar from "@/components/common/navbar/NavBar";
 import HomeSwiper from "@/views/home/childComps/HomeSwiper";
 import RecommendView from "@/views/home/childComps/RecommendView";
+import FeatureView from "@/views/home/childComps/FeatureView";
+
+import NavBar from "@/components/common/navbar/NavBar";
+import TabControl from "@/components/content/tabControl/TabControl";
 
 import {getHomeMultidata} from "@/network/home";
 
@@ -22,12 +67,15 @@ export default {
   components: {
     NavBar,
     HomeSwiper,
-    RecommendView
+    RecommendView,
+    FeatureView,
+    TabControl
   },
   data() {
     return {
       banners: [],
-      recommends: []
+      recommends: [],
+      titles: ['流行', '新款', '精品']
     }
   },
   created() {
@@ -43,5 +91,15 @@ export default {
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 9;
+}
+
+.tab-control {
+  /*在距离顶部44px时i,sticky会变为fixed*/
+  position: sticky;
+  top: 44px;
+  background-color: #fff;
 }
 </style>
