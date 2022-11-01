@@ -8,48 +8,8 @@
     <home-swiper :banners="banners"/>
     <recommend-view :recommends="recommends"/>
     <feature-view/>
-    <tab-control class="tab-control" :titles="titles"/>
-    <goods-list :goods="this.goods['pop'].list"/>
-    <ul>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-    </ul>
+    <tab-control class="tab-control" :titles="titles" @tabClick="tabClick"/>
+    <goods-list :goods="showGoods"/>
   </div>
 </template>
 
@@ -83,7 +43,8 @@ export default {
         'pop': {page: 0, list: []},
         'new': {page: 0, list: []},
         'sell': {page: 0, list: []}
-      }
+      },
+      currentType: 'pop'
     }
   },
   created() {
@@ -92,7 +53,30 @@ export default {
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
   },
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list
+    }
+  },
   methods: {
+    /**
+     * 事件监听相关方法
+     */
+    tabClick(index) {
+      switch (index) {
+        case 0:
+          this.currentType = 'pop'
+          break
+        case 1:
+          this.currentType = 'new'
+          break
+        default:
+          this.currentType = 'sell'
+      }
+    },
+    /**
+     * 网络请求相关方法
+     */
     getHomeMultidata() {
       getHomeMultidata().then(res => {
         this.banners = res.data.banner.list;

@@ -30,5 +30,6 @@ export default {
   flex-wrap: wrap;
   /* item进行均等分 */
   justify-content: space-evenly;
+  padding-bottom: 50px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <tab-bar>
+  <tab-bar class="tab-bar">
     <!--    <tab-bar-item path="/home" active-color="blue">-->
     <tab-bar-item path="/home">
       <!-- 具名插槽 -->
@@ -66,5 +66,7 @@ export default {
 </script>
 
 <style scoped>
-
+.tab-bar {
+  z-index: 9;
+}
 </style>
