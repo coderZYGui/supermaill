@@ -5,11 +5,13 @@
         <div>购物街</div>
       </template>
     </nav-bar>
-    <home-swiper :banners="banners"/>
-    <recommend-view :recommends="recommends"/>
-    <feature-view/>
-    <tab-control class="tab-control" :titles="titles" @tabClick="tabClick"/>
-    <goods-list :goods="showGoods"/>
+    <Scroll class="content">
+      <home-swiper :banners="banners"/>
+      <recommend-view :recommends="recommends"/>
+      <feature-view/>
+      <tab-control class="tab-control" :titles="titles" @tabClick="tabClick"/>
+      <goods-list :goods="showGoods"/>
+    </Scroll>
   </div>
 </template>
 
@@ -17,6 +19,7 @@
 import HomeSwiper from "@/views/home/childComps/HomeSwiper";
 import RecommendView from "@/views/home/childComps/RecommendView";
 import FeatureView from "@/views/home/childComps/FeatureView";
+import Scroll from "@/components/common/scroll/Scroll";
 
 import NavBar from "@/components/common/navbar/NavBar";
 import TabControl from "@/components/content/tabControl/TabControl";
@@ -30,6 +33,7 @@ export default {
     NavBar,
     HomeSwiper,
     RecommendView,
+    Scroll,
     FeatureView,
     TabControl,
     GoodsList
@@ -95,7 +99,13 @@ export default {
 }
 </script>
 
+<!-- scoped 表示作用域, 加了该属性,表示该页面的样式的作用域只在该vue中 -->
 <style scoped>
+#home {
+  /*padding-top: 44px;*/
+  height: 100vh;
+  position: relative;
+}
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
@@ -110,5 +120,15 @@ export default {
   top: 44px;
   background-color: #fff;
   z-index: 9;
+}
+
+.content {
+  /*height: 300px;*/
+  overflow: hidden;
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
 }
 </style>
