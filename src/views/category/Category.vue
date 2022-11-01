@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <ul class="content">
+      <button @click="btnClick">按钮</button>
       <li>测试数据1</li>
       <li>测试数据2</li>
       <li>测试数据3</li>
@@ -111,7 +112,31 @@ import BScroll from 'better-scroll'
 export default {
   name: "Category",
   mounted() {
-    new BScroll('.wrapper', {})
+    // new BScroll('.wrapper', {})
+
+    //默认情况下BScroll是不可以实时的监听滚动位置
+    // probe 侦测滚动, 0,1不监听滚动, 2:在手指滚动过程中检测,手指离开后的惯性滚动过中不侦测, 3: 手指离开后的惯性也侦测
+    let bScroll = new BScroll(document.querySelector('.wrapper'), {
+      probeType: 3,
+      pullUpLoad: true
+    });
+    bScroll.on('scroll', position => {
+      // console.log(position)
+    })
+    bScroll.on('pullingUp', () => {
+      console.log("测试上拉加载更多~~~")
+      // 发送网络请求, 请求更多页的数据
+
+      // 等数据请求完成, 并且将新的数据展示出来后
+      setTimeout(() => {
+        bScroll.finishPullUp()
+      }, 2000)
+    })
+  },
+  methods: {
+    btnClick() {
+      console.log("111")
+    }
   }
 }
 </script>
