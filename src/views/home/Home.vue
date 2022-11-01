@@ -9,6 +9,7 @@
     <recommend-view :recommends="recommends"/>
     <feature-view/>
     <tab-control class="tab-control" :titles="titles"/>
+    <goods-list :goods="this.goods['pop'].list"/>
     <ul>
       <li>列表</li>
       <li>列表</li>
@@ -59,6 +60,7 @@ import FeatureView from "@/views/home/childComps/FeatureView";
 
 import NavBar from "@/components/common/navbar/NavBar";
 import TabControl from "@/components/content/tabControl/TabControl";
+import GoodsList from "@/components/content/goods/GoodsList";
 
 import {getHomeMultidata, getHomeGoods} from "@/network/home";
 
@@ -69,7 +71,8 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
-    TabControl
+    TabControl,
+    GoodsList
   },
   data() {
     return {
@@ -122,5 +125,6 @@ export default {
   position: sticky;
   top: 44px;
   background-color: #fff;
+  z-index: 9;
 }
 </style>
