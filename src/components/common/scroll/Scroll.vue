@@ -11,6 +11,10 @@
 import BScroll from "better-scroll";
 export default {
   name: "Scroll",
+  props: {
+    probeType: Number,
+    default: 0
+  },
   data() {
     return {
       scroll: null
@@ -19,7 +23,13 @@ export default {
   mounted() {
     this.scroll = new BScroll(this.$refs.wrapper, {
       click: true,
-      observeDOM: true
+      observeDOM: true,
+      probeType: this.probeType
+    })
+    // 监听滚动事件,并打印position
+    this.scroll.on('scroll', position => {
+      // 传递出去一个scroll事件
+      this.$emit('scroll', position);
     })
   },
   methods: {

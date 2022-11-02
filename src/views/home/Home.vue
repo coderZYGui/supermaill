@@ -5,7 +5,7 @@
         <div>购物街</div>
       </template>
     </nav-bar>
-    <Scroll class="content" ref="scroll">
+    <Scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
       <home-swiper :banners="banners"/>
       <recommend-view :recommends="recommends"/>
       <feature-view/>
@@ -13,7 +13,7 @@
       <goods-list :goods="showGoods"/>
     </Scroll >
     <!-- 监听自定义组件的事件时,必须加上@click的native修饰符,才能进行原生事件监听 -->
-    <BackTop @click.native="backClick"/>
+    <BackTop @click.native="backClick" v-show="isShowBackTop"/>
   </div>
 </template>
 
@@ -46,7 +46,8 @@ export default {
         'new': {page: 0, list: []},
         'sell': {page: 0, list: []}
       },
-      currentType: 'pop'
+      currentType: 'pop',
+      isShowBackTop: false
     }
   },
   created() {
@@ -79,6 +80,9 @@ export default {
     backClick() {
       // this.$refs.scroll拿到的就是上面绑定ref的scroll组件对象
       this.$refs.scroll.scrollTo(0, 0)
+    },
+    contentScroll(position) {
+      this.isShowBackTop = position.y < -1000
     },
     /**
      * 网络请求相关方法
