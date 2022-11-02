@@ -5,7 +5,10 @@
         <div>购物街</div>
       </template>
     </nav-bar>
-    <Scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
+    <Scroll class="content" ref="scroll"
+            :probe-type="3"
+            :pull-up-load="true"
+            @scroll="contentScroll" @pullingUp="loadMore">
       <home-swiper :banners="banners"/>
       <recommend-view :recommends="recommends"/>
       <feature-view/>
@@ -84,6 +87,9 @@ export default {
     contentScroll(position) {
       this.isShowBackTop = position.y < -1000
     },
+    loadMore() {
+      this.getHomeGoods(this.currentType);
+    },
     /**
      * 网络请求相关方法
      */
@@ -98,8 +104,10 @@ export default {
       let page = this.goods[type].page + 1;
       getHomeGoods(type, page).then(res => {
         this.goods[type].list.push(...res.data.list)
+        this.goods[type].page += 1
+        // 可以下拉加载多次
+        this.$refs.scroll.finishPullUp()
       })
-      this.goods[type].page += 1
     }
   }
 }
