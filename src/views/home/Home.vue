@@ -5,13 +5,15 @@
         <div>购物街</div>
       </template>
     </nav-bar>
-    <Scroll class="content">
+    <Scroll class="content" ref="scroll">
       <home-swiper :banners="banners"/>
       <recommend-view :recommends="recommends"/>
       <feature-view/>
       <tab-control class="tab-control" :titles="titles" @tabClick="tabClick"/>
       <goods-list :goods="showGoods"/>
-    </Scroll>
+    </Scroll >
+    <!-- 监听自定义组件的事件时,必须加上@click的native修饰符,才能进行原生事件监听 -->
+    <BackTop @click.native="backClick"/>
   </div>
 </template>
 
@@ -20,6 +22,7 @@ import HomeSwiper from "@/views/home/childComps/HomeSwiper";
 import RecommendView from "@/views/home/childComps/RecommendView";
 import FeatureView from "@/views/home/childComps/FeatureView";
 import Scroll from "@/components/common/scroll/Scroll";
+import BackTop from "@/components/content/backTop/BackTop";
 
 import NavBar from "@/components/common/navbar/NavBar";
 import TabControl from "@/components/content/tabControl/TabControl";
@@ -30,13 +33,8 @@ import {getHomeMultidata, getHomeGoods} from "@/network/home";
 export default {
   name: "Home",
   components: {
-    NavBar,
-    HomeSwiper,
-    RecommendView,
-    Scroll,
-    FeatureView,
-    TabControl,
-    GoodsList
+    NavBar, HomeSwiper, RecommendView, Scroll, BackTop,
+    FeatureView, TabControl, GoodsList
   },
   data() {
     return {
@@ -78,6 +76,10 @@ export default {
           this.currentType = 'sell'
       }
     },
+    backClick() {
+      // this.$refs.scroll拿到的就是上面绑定ref的scroll组件对象
+      this.$refs.scroll.scrollTo(0, 0)
+    },
     /**
      * 网络请求相关方法
      */
@@ -106,6 +108,7 @@ export default {
   height: 100vh;
   position: relative;
 }
+
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
